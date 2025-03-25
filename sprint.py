@@ -33,18 +33,27 @@ def liberar_leito(leitos, numero):
 # Função para visualizar os leitos
 def visualizar_leitos(leitos):
     print("Status dos Leitos:")
-
     for leito in leitos:
         status = "Ocupado" if leito["ocupado"] else "Disponível"
         paciente_info = f" - Paciente: {leito['paciente']}" if leito["ocupado"] else ""
         print(f"Leito {leito['numero']}: {status}{paciente_info}")
+
+# Função para visualizar leitos ocupados
+def visualizar_leitos_ocupados(leitos):
+    print("Leitos Ocupados:")
+    ocupados = [leito for leito in leitos if leito["ocupado"]]
+    if not ocupados:
+        print("Nenhum leito ocupado.")
+    else:
+        for leito in ocupados:
+            print(f"Leito {leito['numero']} - Paciente: {leito['paciente']}")
+            
 # Função principal
 def main():
     leitos = []
     # Adicionando 10 leitos padrão
     for i in range(1, 11):
-        adicionar_leito(leitos, str(i))  # Adiciona leitos de 1 a 10
-    # Imprimindo os leitos adicionados
+        adicionar_leito(leitos, str(i)) 
     print("\nLeitos adicionados:")
 
     for leito in leitos:
@@ -55,9 +64,10 @@ def main():
         print("2. Ocupação de Leito")
         print("3. Liberação de Leito")
         print("4. Visualizar Leitos")
-        print("5. Sair")
+        print("5. Visualizar Leitos Ocupados")
+        print("6. Sair")
         opcao = input("Escolha uma opção: ")
-
+        
         if opcao == '1':
             numero = input("Digite o número do leito: ")
             adicionar_leito(leitos, numero)
@@ -70,12 +80,12 @@ def main():
             liberar_leito(leitos, numero)
         elif opcao == '4':
             visualizar_leitos(leitos)
-        elif opcao == '5':
+         elif opcao == '5':
+            visualizar_leitos_ocupados(leitos)
+        elif opcao == '6':
             print("Saindo do sistema.")
             break
         else:
             print("Opção inválida. Tente novamente.")
-
 if __name__ == "__main__":
-
     main()
