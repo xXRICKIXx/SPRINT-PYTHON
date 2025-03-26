@@ -48,6 +48,17 @@ def visualizar_leitos_ocupados(leitos):
         for leito in ocupados:
             print(f"Leito {leito['numero']} - Paciente: {leito['paciente']}")
             
+# Função para visualizar histórico de ocupação
+def visualizar_historico(leitos):
+    print("\nHistórico de Leitos:")
+    for leito in leitos:
+        print(f"\nLeito {leito['numero']}:")
+        if leito["historico"]:
+            for h in leito["historico"]:
+                print(f"  Paciente: {h['paciente']} - Tempo: {h['tempo']}")
+        else:
+            print("  Nenhum histórico registrado.")
+            
 # Função principal
 def main():
     leitos = []
@@ -65,7 +76,8 @@ def main():
         print("3. Liberação de Leito")
         print("4. Visualizar Leitos")
         print("5. Visualizar Leitos Ocupados")
-        print("6. Sair")
+         print("6. Visualizar Histórico de Leitos")
+        print("7. Sair")
         opcao = input("Escolha uma opção: ")
         
         if opcao == '1':
@@ -83,6 +95,8 @@ def main():
          elif opcao == '5':
             visualizar_leitos_ocupados(leitos)
         elif opcao == '6':
+            visualizar_historico(leitos)
+        elif opcao == '7':
             print("Saindo do sistema.")
             break
         else:
