@@ -81,7 +81,7 @@ def main():
         print(f"Leito {leito['numero']} - Ocupado: {leito['ocupado']}")
 
     # Login do usuário
-    tipo_usuario = input("\nVocê é um paciente ou enfermeiro? (digite 'paciente' ou 'enfermeiro'): ").strip().lower()
+    tipo_usuario = input("\nVocê é um paciente ou enfermeiro? (digite 'paciente' ou 'enfermeiro'): ")
     if tipo_usuario not in ['paciente', 'enfermeiro']:
         print("Tipo de usuário inválido. Saindo.")
         return
@@ -99,7 +99,7 @@ def main():
         print("6. Visualizar Histórico de Leitos")
         print("7. Sair")
         
-        opcao = input("Escolha uma opção: ").strip()
+        opcao = input("Escolha uma opção: ")
 
         if tipo_usuario == 'enfermeiro':
             if opcao == '1':
