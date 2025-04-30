@@ -4,4 +4,4 @@ Henrique Celso,
 Davis Jr,
 Jonathan Henrique,
 Alan de Castro,
-Lucas Cortizo,
+Lucas Cortizo
