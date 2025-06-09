@@ -1,3 +1,26 @@
+import json
+
+# Função para salvar os dados dos leitos
+def salvar_leitos(leitos, arquivo="leitos.json"):
+    try:
+        with open(arquivo, "w", encoding="utf-8") as f:
+            json.dump(leitos, f, ensure_ascii=False, indent=4)
+        print("Dados salvos com sucesso.")
+    except Exception as e:
+        print(f"Erro ao salvar dados: {e}")
+
+# Função para carregar os dados dos leitos
+def carregar_leitos(arquivo="leitos.json"):
+    try:
+        with open(arquivo, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("Arquivo não encontrado. Iniciando com lista de leitos vazia.")
+        return []
+    except Exception as e:
+        print(f"Erro ao carregar dados: {e}")
+        return []
+
 # Função para adicionar um leito
 def adicionar_leito(leitos, numero):
     leito = {"numero": numero, "ocupado": False, "paciente": None, "historico": []}
@@ -11,7 +34,7 @@ def ocupar_leito(leitos, numero, paciente):
             if not leito["ocupado"]:
                 leito["ocupado"] = True
                 leito["paciente"] = paciente
-                leito["historico"].append({"paciente": paciente, "tempo": "agora"})  # Pode substituir "agora" por datetime.now()
+                leito["historico"].append({"paciente": paciente, "tempo": "agora"})  # Substituir por datetime se quiser
                 print(f"Leito {numero} ocupado por {paciente}.")
             else:
                 print(f"Leito {numero} já está ocupado.")
@@ -64,24 +87,18 @@ def visualizar_historico(leitos):
 def login_usuario(tipo):
     usuario = input(f"Digite o nome do {tipo}: ")
     senha = input(f"Digite a senha do {tipo}: ")
-    # Lógica simples de login, pode ser substituída por uma verificação real
     print(f"{tipo.capitalize()} {usuario} logado com sucesso.")
     return usuario
 
 # Função principal
 def main():
-    leitos = []
+    leitos = carregar_leitos()
 
-    # Adicionando 10 leitos padrão
-    for i in range(1, 11):
-        adicionar_leito(leitos, str(i))
+    if not leitos:
+        for i in range(1, 11):
+            adicionar_leito(leitos, str(i))
 
-    print("\nLeitos adicionados:")
-    for leito in leitos:
-        print(f"Leito {leito['numero']} - Ocupado: {leito['ocupado']}")
-
-    # Login do usuário
-    tipo_usuario = input("\nVocê é um paciente ou enfermeiro? (digite 'paciente' ou 'enfermeiro'): ")
+    tipo_usuario = input("\nVocê é um paciente ou enfermeiro? (digite 'paciente' ou 'enfermeiro'): ").lower()
     if tipo_usuario not in ['paciente', 'enfermeiro']:
         print("Tipo de usuário inválido. Saindo.")
         return
@@ -98,44 +115,48 @@ def main():
         print("5. Visualizar Leitos Ocupados")
         print("6. Visualizar Histórico de Leitos")
         print("7. Sair")
-        
+
         opcao = input("Escolha uma opção: ")
 
-        if tipo_usuario == 'enfermeiro':
-            if opcao == '1':
-                numero = input("Digite o número do novo leito: ")
-                adicionar_leito(leitos, numero)
-            elif opcao == '2':
-                numero = input("Digite o número do leito a ser ocupado: ")
-                paciente = input("Digite o nome do paciente: ")
-                ocupar_leito(leitos, numero, paciente)
-            elif opcao == '3':
-                numero = input("Digite o número do leito a ser liberado: ")
-                liberar_leito(leitos, numero)
-            elif opcao == '4':
-                visualizar_leitos(leitos)
-            elif opcao == '5':
-                visualizar_leitos_ocupados(leitos)
-            elif opcao == '6':
-                visualizar_historico(leitos)
-            elif opcao == '7':
-                print("Saindo do sistema...")
-                break
-            else:
-                print("Opção inválida. Tente novamente.")
-
-        else:  # paciente
-            if opcao == '4':
-                visualizar_leitos(leitos)
-            elif opcao == '5':
-                visualizar_leitos_ocupados(leitos)
-            elif opcao == '6':
-                visualizar_historico(leitos)
-            elif opcao == '7':
-                print("Saindo do sistema...")
-                break
-            else:
-                print("Opção inválida. Tente novamente.")
+        try:
+            if tipo_usuario == 'enfermeiro':
+                if opcao == '1':
+                    numero = input("Digite o número do novo leito: ")
+                    adicionar_leito(leitos, numero)
+                elif opcao == '2':
+                    numero = input("Digite o número do leito a ser ocupado: ")
+                    paciente = input("Digite o nome do paciente: ")
+                    ocupar_leito(leitos, numero, paciente)
+                elif opcao == '3':
+                    numero = input("Digite o número do leito a ser liberado: ")
+                    liberar_leito(leitos, numero)
+                elif opcao == '4':
+                    visualizar_leitos(leitos)
+                elif opcao == '5':
+                    visualizar_leitos_ocupados(leitos)
+                elif opcao == '6':
+                    visualizar_historico(leitos)
+                elif opcao == '7':
+                    salvar_leitos(leitos)
+                    print("Saindo do sistema...")
+                    break
+                else:
+                    print("Opção inválida. Tente novamente.")
+            else:  # paciente
+                if opcao == '4':
+                    visualizar_leitos(leitos)
+                elif opcao == '5':
+                    visualizar_leitos_ocupados(leitos)
+                elif opcao == '6':
+                    visualizar_historico(leitos)
+                elif opcao == '7':
+                    salvar_leitos(leitos)
+                    print("Saindo do sistema...")
+                    break
+                else:
+                    print("Opção inválida. Tente novamente.")
+        except Exception as e:
+            print(f"Ocorreu um erro: {e}")
 
 # Executa o sistema
 if __name__ == "__main__":
