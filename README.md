@@ -55,7 +55,7 @@ projeto_leitos/
 
 2. Execute o script principal:
    ```bash
-   python leitos.py
+   python sprint.py
    ```
 
 3. Siga as instruções exibidas no terminal.
