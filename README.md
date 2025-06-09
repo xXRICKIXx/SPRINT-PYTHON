@@ -104,10 +104,10 @@ projeto_leitos/
 
 ## 👥 Equipe
 
--Henrique Celso 
--Jonathan Henrique 
--Davis Jr 
--Alan de Castro 
+- Henrique Celso 
+- Jonathan Henrique 
+- Davis Jr 
+- Alan de Castro 
 - Lucas Cortizo
 
 
