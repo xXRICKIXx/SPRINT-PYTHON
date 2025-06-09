@@ -1,0 +1,40 @@
+diagrama
++------------------+
+|     Sistema      |
++------------------+
+| - leitos: list   |
++------------------+
+| +main()          |
+| +carregar_leitos()|
+| +salvar_leitos()  |
++------------------+
+
+        ▲
+        │
+        │ usa
+        ▼
+
++-------------------+
+|     Leito         |
++-------------------+
+| - numero: str     |
+| - ocupado: bool   |
+| - paciente: str   |
+| - historico: list |
++-------------------+
+| +ocupar(paciente) |
+| +liberar()        |
+| +adicionar()      |
++-------------------+
+
+        ▲
+        │
+        │ contém
+        ▼
+
++-------------------+
+|   Historico       |
++-------------------+
+| - paciente: str   |
+| - tempo: str      |
++-------------------+
