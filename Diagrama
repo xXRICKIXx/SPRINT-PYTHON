@@ -1,40 +1,51 @@
-diagrama
-+------------------+
-|     Sistema      |
-+------------------+
-| - leitos: list   |
-+------------------+
-| +main()          |
-| +carregar_leitos()|
-| +salvar_leitos()  |
-+------------------+
++---------------------------------+
+|          Sistema                |
++---------------------------------+
+| - leitos: list                  |
+| - ENFERMEIRO_CREDENCIAIS: dict  |
+| - PACIENTE_CREDENCIAIS: dict    |
++---------------------------------+
+| +main()                         |
+| +carregar_leitos()              |
+| +salvar_leitos()                |
++---------------------------------+
 
         ▲
         │
         │ usa
         ▼
 
-+-------------------+
-|     Leito         |
-+-------------------+
-| - numero: str     |
-| - ocupado: bool   |
-| - paciente: str   |
-| - historico: list |
-+-------------------+
-| +ocupar(paciente) |
-| +liberar()        |
-| +adicionar()      |
-+-------------------+
++-----------------------+
+|          Leito          |
++-----------------------+
+| - numero: str         |
+| - status: str         |
+| - paciente: str       |
+| - entrada_ocupacao: datetime |
+| - historico: list     |
++-----------------------+
+| +ocupar(paciente: str) |
+| +liberar()            |
+| +adicionar(numero: str)|
+| +remover(numero: str) |
+| +iniciar_limpeza()    |
+| +finalizar_limpeza()  |
+| +iniciar_manutencao() |
+| +finalizar_manutencao()|
++-----------------------+
 
         ▲
         │
         │ contém
         ▼
 
-+-------------------+
-|   Historico       |
-+-------------------+
-| - paciente: str   |
-| - tempo: str      |
-+-------------------+
++-----------------------+
+|      Historico          |
++-----------------------+
+| - tipo: str           |
+| - status_anterior: str|
+| - novo_status: str    |
+| - timestamp: datetime |
+| - paciente: str       |
+| - tempo_permanencia: str|
++-----------------------+
